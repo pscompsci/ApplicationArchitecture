@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CleanBankingApp.Core.Domain.Entities
+﻿namespace CleanBankingApp.Core.Domain.Entities
 {
     public class Account
     {
@@ -17,10 +13,7 @@ namespace CleanBankingApp.Core.Domain.Entities
             Balance = balance;
         }
 
-        public void SetId(int id)
-        {
-            Id = id;
-        }
+        public void SetId(int id) => Id = id;
 
         public bool Deposit(decimal amount)
         {
