@@ -18,7 +18,7 @@ in the repository.
 
 ## Application Organisation
 
-<img src="documents/uml_initial.png" alt="Banking Application UML Diagram" width="400" />
+<img src="./documents/uml_initial.PNG" alt="Banking Application UML Diagram" width="1200" />
 
 ## References
 
