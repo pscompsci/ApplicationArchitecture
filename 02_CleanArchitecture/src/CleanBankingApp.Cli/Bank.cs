@@ -6,7 +6,7 @@ using System;
 
 namespace CleanBankingApp.Cli
 {
-    class Bank
+    class Bank : IBank
     {
         private readonly IAccountService _accounts;
         private readonly ITransactionService _transactions;
@@ -17,107 +17,140 @@ namespace CleanBankingApp.Cli
             _transactions = new TransactionService(new InMemoryTransactionRepository());
         }
 
-        public void AddAccount(Account account)
+        private string InputAccountName()
         {
-            _accounts.CreateAccount(account);
+            return ConsoleInput.ReadString("Enter the account name");
         }
 
-        public Account GetAccount(string name)
+        private decimal InputAmount()
         {
-            return _accounts.GetByName(name);
+            return ConsoleInput.ReadDecimal("Enter the amount");
         }
 
         private Account FindAccount()
         {
-            string name = ConsoleInput.ReadString("Enter the account name");
+            string name = InputAccountName();
             return _accounts.GetByName(name);
         }
 
-        public void DoDeposit()
+        private void DoCreateAccount()
         {
-            Account account = FindAccount();
-            if (account != null)
-            {
-                decimal amount = ConsoleInput.ReadDecimal("Enter the amount");
-                _transactions.NewDeposit(account, amount);
-            }
+            string name = InputAccountName();
+            decimal balance = ConsoleInput.ReadDecimal("Enter the opening balance");
+            _accounts.NewAccount(name, balance);
         }
 
-        public void DoWithdraw()
+        private void DoDeposit()
         {
             Account account = FindAccount();
-            if (account != null)
-            {
-                decimal amount = ConsoleInput.ReadDecimal("Enter the amount");
-                _transactions.NewWithdraw(account, amount);
-            }
+            if (account is null) return;
+            decimal amount = InputAmount();
+            _transactions.NewDeposit(account, amount);
         }
 
-        public void DoTransfer()
+        private void DoWithdraw()
+        {
+            Account account = FindAccount();
+            if (account is null) return;
+
+            decimal amount = InputAmount();
+            _transactions.NewWithdraw(account, amount);
+        }
+
+        private void DoTransfer()
         {
             Console.WriteLine("Transfer from:");
-            Console.WriteLine("Transfer to:");
             Account from = FindAccount();
+
+            Console.WriteLine("Transfer to:");
             Account to = FindAccount();
-            if (from != null && to != null)
-            {
-                decimal amount = ConsoleInput.ReadDecimal("Enter the amount");
-                _transactions.NewTransfer(from, to, amount);
-            }
+
+            if (from is null || to is null) return;
+            
+            decimal amount = InputAmount();
+            _transactions.NewTransfer(from, to, amount);
         }
 
-        public void DoRollback()
+        private void DoRollback()
         {
             PrintTransactionHistory();
+
             int result = ConsoleInput.ReadInteger(
                 "Enter transaction # to rollback (0 for no rollback)",
                 0, _transactions.GetCount());
 
-            if (result == 0)
-                return;
-
-            Rollback(_transactions.GetById(result));
+            if (result == 0) return;
+            _transactions.GetById(result).Rollback();
         }
 
-        public void Rollback(Transaction transaction)
-        {
-            try
-            {
-                transaction.Rollback();
-            }
-            catch (InvalidOperationException exception)
-            {
-                Console.WriteLine("An error occurred in rolling the transaction back");
-                Console.WriteLine("The error was: " + exception.Message);
-            }
-        }
-
-        public void DoPrint()
+        private void DoPrintAccount()
         {
             Account account = FindAccount();
-            if (account != null)
-            {
-                Console.WriteLine("--------------------------------");
-                Console.WriteLine("| {0,-15} | {1,10} |", "Name", "Balance");
-                Console.WriteLine("================================");
-                Console.WriteLine("| {0,-15} | {1,10} |", account.Name, account.Balance.ToString("C"));
-                Console.WriteLine("================================");
-            }
+            if (account is null) return;
+            ConsoleOutput.DisplayAccount(account);
         }
 
-        public void PrintTransactionHistory()
+        private void PrintTransactionHistory()
         {
-            Console.WriteLine(new String('-', 85));
-            Console.WriteLine("| {0,2} |{1,-25} | {2,-15}|{3,15} | {4,15} |", "#",
-                    "DateTime", "Type", "Amount", "Status");
-            Console.WriteLine(new String('=', 85));
-            foreach (var transaction in _transactions.GetAll())
+            ConsoleOutput.DisplayTransactions(_transactions.GetAll());
+        }
+
+        private MenuOption ReadUserOption()
+        {
+            int option = ConsoleInput.ReadInteger("Choose an option", 1,
+                Enum.GetNames(typeof(MenuOption)).Length);
+            return (MenuOption)(option - 1);
+        }
+
+        public void InitData()
+        {
+            _accounts.NewAccount("Peter", 250);
+            _accounts.NewAccount("Kay", 800);
+        }
+
+        public void StartUI()
+        {
+            do
             {
-                Console.WriteLine("| {0,2} |{1,-25} | {2,-15}|{3,15} | {4,15} |", 
-                    transaction.Id, transaction.DateStamp, transaction.Type,
-                    transaction.Amount.ToString("C"), transaction.Status);
-            }
-            Console.WriteLine(new String('=', 85));
+                ConsoleOutput.DisplayMenu();
+                MenuOption chosen = ReadUserOption();
+
+                switch (chosen)
+                {
+                    case MenuOption.CreateAccount:
+                        DoCreateAccount(); 
+                        break;
+
+                    case MenuOption.Withdraw:
+                        DoWithdraw(); 
+                        break;
+
+                    case MenuOption.Deposit:
+                        DoDeposit(); 
+                        break;
+
+                    case MenuOption.Transfer:
+                        DoTransfer(); 
+                        break;
+
+                    case MenuOption.Rollback:
+                        DoRollback(); 
+                        break;
+
+                    case MenuOption.Print:
+                        DoPrintAccount();
+                        break;
+
+                    case MenuOption.History:
+                        PrintTransactionHistory();
+                        break;
+
+                    case MenuOption.Quit:
+                    default:
+                        Console.WriteLine("Goodbye");
+                        return;
+                }
+            } while (true);
         }
     }
 }

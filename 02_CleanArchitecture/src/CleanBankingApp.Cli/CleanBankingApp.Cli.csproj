@@ -10,4 +10,8 @@
     <ProjectReference Include="..\CleanBankingApp.Infrastructure\CleanBankingApp.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.9" />
+  </ItemGroup>
+
 </Project>
