@@ -1,5 +1,6 @@
 using CleanBankingApp.Core.Domain.Entities;
 using CleanBankingApp.Core.Interfaces;
+using System;
 using System.Collections.Generic;
 
 namespace CleanBankingApp.Infrastructure.Repositories
@@ -27,7 +28,7 @@ namespace CleanBankingApp.Infrastructure.Repositories
 
         public Transaction GetByName(string name)
         {
-            return null;
+            throw new NotImplementedException();
         }
 
         public Transaction GetById(int id)
@@ -43,6 +44,11 @@ namespace CleanBankingApp.Infrastructure.Repositories
             if (result is null) return null;
             result = transaction;
             return result;
+        }
+
+        public int GetCount()
+        {
+            return _transactions.Count;
         }
     }
 }

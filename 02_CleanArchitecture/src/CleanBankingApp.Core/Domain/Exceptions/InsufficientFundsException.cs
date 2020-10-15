@@ -5,6 +5,7 @@ namespace CleanBankingApp.Core.Domain.Exceptions
     public class InsufficientFundsException : Exception
     {
         public InsufficientFundsException()
+            : base(message: "Insufficient funds in the account")
         {
         }
 

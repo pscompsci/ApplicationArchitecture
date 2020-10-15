@@ -10,5 +10,6 @@ namespace CleanBankingApp.Core.Interfaces
         Transaction GetByName(string name);
         IEnumerable<Transaction> GetAll();
         Transaction Update(Transaction transaction);
+        int GetCount();
     }
 }

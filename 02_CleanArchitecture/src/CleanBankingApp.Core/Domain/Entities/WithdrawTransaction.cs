@@ -12,7 +12,7 @@ namespace CleanBankingApp.Core.Domain.Entities
             Account = account;
         }
 
-        public override void Execute()
+        public override bool Execute()
         {
             base.Execute();
             Success = Account.Withdraw(Amount);
@@ -20,12 +20,14 @@ namespace CleanBankingApp.Core.Domain.Entities
                 throw new InsufficientFundsException(
                     message: $"Insufficient funds to withdraw {Amount.ToString("C")}!"
                 );
+            return true;
         }
 
-        public override void Rollback()
+        public override bool Rollback()
         {
             base.Rollback();
             Account.Deposit(Amount);
+            return true;
         }
     }
 }

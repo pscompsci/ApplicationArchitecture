@@ -30,12 +30,17 @@ namespace CleanBankingApp.Core.Domain.Entities
 
         public void SetId(int id) => Id = id;
 
-        public virtual void Execute()
+        public virtual bool Execute()
         {
             Executed = true;
             DateStamp = DateTime.Now;
+            return true;
         }
 
-        public virtual void Rollback() => DateStamp = DateTime.Now;
+        public virtual bool Rollback()
+        {
+            DateStamp = DateTime.Now;
+            return true;
+        }
     }
 }

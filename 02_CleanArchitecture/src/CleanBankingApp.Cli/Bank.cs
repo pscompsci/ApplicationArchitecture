@@ -3,19 +3,18 @@ using CleanBankingApp.Core.Services;
 using CleanBankingApp.Infrastructure.Repositories;
 using CleanBankingApp.Core.Domain.Entities;
 using System;
-using System.Collections.Generic;
 
-namespace CleanBankingApp
+namespace CleanBankingApp.Cli
 {
     class Bank
     {
         private readonly IAccountService _accounts;
-        public List<Transaction> Transactions { get; private set; }
+        private readonly ITransactionService _transactions;
 
         public Bank()
         {
             _accounts = new AccountService(new InMemoryAccountRepository());
-            Transactions = new List<Transaction>();
+            _transactions = new TransactionService(new InMemoryTransactionRepository());
         }
 
         public void AddAccount(Account account)
@@ -28,18 +27,56 @@ namespace CleanBankingApp
             return _accounts.GetByName(name);
         }
 
-        public void Execute(Transaction transaction)
+        private Account FindAccount()
         {
-            Transactions.Add(transaction);
-            try
+            string name = ConsoleInput.ReadString("Enter the account name");
+            return _accounts.GetByName(name);
+        }
+
+        public void DoDeposit()
+        {
+            Account account = FindAccount();
+            if (account != null)
             {
-                transaction.Execute();
+                decimal amount = ConsoleInput.ReadDecimal("Enter the amount");
+                _transactions.NewDeposit(account, amount);
             }
-            catch (InvalidOperationException exception)
+        }
+
+        public void DoWithdraw()
+        {
+            Account account = FindAccount();
+            if (account != null)
             {
-                Console.WriteLine("An error occurred in executing the transaction");
-                Console.WriteLine("The error was: " + exception.Message);
+                decimal amount = ConsoleInput.ReadDecimal("Enter the amount");
+                _transactions.NewWithdraw(account, amount);
             }
+        }
+
+        public void DoTransfer()
+        {
+            Console.WriteLine("Transfer from:");
+            Console.WriteLine("Transfer to:");
+            Account from = FindAccount();
+            Account to = FindAccount();
+            if (from != null && to != null)
+            {
+                decimal amount = ConsoleInput.ReadDecimal("Enter the amount");
+                _transactions.NewTransfer(from, to, amount);
+            }
+        }
+
+        public void DoRollback()
+        {
+            PrintTransactionHistory();
+            int result = ConsoleInput.ReadInteger(
+                "Enter transaction # to rollback (0 for no rollback)",
+                0, _transactions.GetCount());
+
+            if (result == 0)
+                return;
+
+            Rollback(_transactions.GetById(result));
         }
 
         public void Rollback(Transaction transaction)
@@ -55,17 +92,30 @@ namespace CleanBankingApp
             }
         }
 
+        public void DoPrint()
+        {
+            Account account = FindAccount();
+            if (account != null)
+            {
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("| {0,-15} | {1,10} |", "Name", "Balance");
+                Console.WriteLine("================================");
+                Console.WriteLine("| {0,-15} | {1,10} |", account.Name, account.Balance.ToString("C"));
+                Console.WriteLine("================================");
+            }
+        }
+
         public void PrintTransactionHistory()
         {
             Console.WriteLine(new String('-', 85));
             Console.WriteLine("| {0,2} |{1,-25} | {2,-15}|{3,15} | {4,15} |", "#",
                     "DateTime", "Type", "Amount", "Status");
             Console.WriteLine(new String('=', 85));
-            for (int i = 0; i < Transactions.Count; i++)
+            foreach (var transaction in _transactions.GetAll())
             {
-                Console.WriteLine("| {0,2} |{1,-25} | {2,-15}|{3,15} | {4,15} |", i + 1,
-                    Transactions[i].DateStamp, Transactions[i].Type,
-                    Transactions[i].Amount.ToString("C"), Transactions[i].Status);
+                Console.WriteLine("| {0,2} |{1,-25} | {2,-15}|{3,15} | {4,15} |", 
+                    transaction.Id, transaction.DateStamp, transaction.Type,
+                    transaction.Amount.ToString("C"), transaction.Status);
             }
             Console.WriteLine(new String('=', 85));
         }
