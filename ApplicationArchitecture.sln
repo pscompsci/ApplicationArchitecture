@@ -8,6 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base Application", "Base Application", "{E3357345-55A2-4DA8-B8AF-39E7EDBC6AF2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clean Architecture", "Clean Architecture", "{498BBF32-D683-4ED9-AD8C-9DE947B50889}"
+	ProjectSection(SolutionItems) = preProject
+		02_CleanArchitecture\documents\clean_reorganisation.png = 02_CleanArchitecture\documents\clean_reorganisation.png
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{85248427-960F-4C97-BA08-F8A09A8BDC42}"
 EndProject
