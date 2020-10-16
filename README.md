@@ -16,7 +16,7 @@ Overall organisation of the code can be represented at a high-level as:
 
 ## Installation
 
-```git clone https://github.com/pscompsci/ApplicationArchitecture.git ```
+``` git clone https://github.com/pscompsci/ApplicationArchitecture.git ```
 
 ## Running the Application
 
@@ -25,7 +25,7 @@ Set CleanBankingApp.Cli at the Startup Project in Visual Studio
 In the command line:
 
 ```
-cd 02_CleanArchitecture/src/CleanBankingApp.cli
+cd ./02_CleanArchitecture/src/CleanBankingApp.cli
 dotnet run
 ```
 
