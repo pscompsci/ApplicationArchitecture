@@ -12,11 +12,11 @@ The domain entities of the application, representintg the Account and transactio
 
 Overall organisation of the code can be represented at a high-level as:
 
-<src img="documents/clean_reorganisation.png" size="800" />
+<img src="documents/clean_reorganisation.png" width="800" />
 
 ## Installation
 
-```git clone https://github.com/pscompsci/ApplicationArchitecture.git ```
+```git clone https://github.com/pscompsci/ApplicationArchitecture.git```
 
 ## Running the Application
 
