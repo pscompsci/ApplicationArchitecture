@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CleanBankingApp.Core.Domain.Exceptions;
+using System;
 
 namespace CleanBankingApp.Core.Domain.Entities
 {
@@ -24,7 +25,8 @@ namespace CleanBankingApp.Core.Domain.Entities
 
         public Transaction(decimal amount, string type)
         {
-            if (amount >= 0) Amount = amount;
+            if (amount < 0) throw new NegativeAmountException();
+            Amount = amount;
             Type = type;
         }
 

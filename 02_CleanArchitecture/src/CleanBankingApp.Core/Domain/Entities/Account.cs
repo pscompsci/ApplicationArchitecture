@@ -1,4 +1,6 @@
-﻿namespace CleanBankingApp.Core.Domain.Entities
+﻿using CleanBankingApp.Core.Domain.Exceptions;
+
+namespace CleanBankingApp.Core.Domain.Entities
 {
     public class Account
     {
@@ -9,7 +11,8 @@
         public Account(string name, decimal balance = 0)
         {
             Name = name;
-            if (balance < 0) return;
+            if (balance < 0) throw new NegativeAmountException(
+                "Balance set to $0.00");
             Balance = balance;
         }
 
@@ -17,15 +20,15 @@
 
         public bool Deposit(decimal amount)
         {
-            if (amount <= 0) return false;
+            if (amount < 0) throw new NegativeAmountException();
             Balance += amount;
             return true;
         }
 
         public bool Withdraw(decimal amount)
         {
-            if (amount <= 0) return false;
-            if (amount > Balance) return false;
+            if (amount < 0) throw new NegativeAmountException();
+            if (amount > Balance) throw new InsufficientFundsException();
             Balance -= amount;
             return true;
         }

@@ -18,7 +18,7 @@ namespace CleanBankingApp.Core.Domain.Entities
             Success = Account.Withdraw(Amount);
             if (!Success)
                 throw new InsufficientFundsException(
-                    message: $"Insufficient funds to withdraw {Amount.ToString("C")}!"
+                    message: $"Insufficient funds to withdraw {Amount:C}!"
                 );
             return true;
         }
@@ -26,8 +26,8 @@ namespace CleanBankingApp.Core.Domain.Entities
         public override bool Rollback()
         {
             base.Rollback();
-            Account.Deposit(Amount);
-            return true;
+            Reversed = Account.Deposit(Amount);
+            return Reversed;
         }
     }
 }

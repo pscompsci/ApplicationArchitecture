@@ -26,9 +26,9 @@ namespace CleanBankingApp.Core.Domain.Entities
             Reversed = Account.Withdraw(Amount);
             if (!Reversed) 
                 throw new InsufficientFundsException(
-                    message: $"Insufficient funds to withdraw {Amount.ToString("C")}!"
+                    message: $"Insufficient funds to withdraw {Amount:C}!"
                 );
-            return true;
+            return Reversed;
         }
     }
 }

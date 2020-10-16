@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseBankingApplication", "01_BaseConsoleApplication\BaseBankingApplication\BaseBankingApplication.csproj", "{5E5BC2BA-A5FD-402A-96A3-75028FB5F523}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.Cli", "02_CleanArchitecture\src\CleanBankingApp.Cli\CleanBankingApp.Cli.csproj", "{0B794DEC-BCBA-4D42-BB13-19227CD799A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.Cli", "02_CleanArchitecture\src\CleanBankingApp.Cli\CleanBankingApp.Cli.csproj", "{0B794DEC-BCBA-4D42-BB13-19227CD799A2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base Application", "Base Application", "{E3357345-55A2-4DA8-B8AF-39E7EDBC6AF2}"
 EndProject
@@ -15,9 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{85248427-960
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7642C687-3575-4934-8EDF-010ADD43FE47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.Infrastructure", "02_CleanArchitecture\src\CleanBankingApp.Infrastructure\CleanBankingApp.Infrastructure.csproj", "{4925C1D8-3D4D-4A3C-A426-26E02C437D87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.Infrastructure", "02_CleanArchitecture\src\CleanBankingApp.Infrastructure\CleanBankingApp.Infrastructure.csproj", "{4925C1D8-3D4D-4A3C-A426-26E02C437D87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.Core", "02_CleanArchitecture\src\CleanBankingApp.Core\CleanBankingApp.Core.csproj", "{0521CA54-D55C-4875-8388-4AAC395BB285}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.Core", "02_CleanArchitecture\src\CleanBankingApp.Core\CleanBankingApp.Core.csproj", "{0521CA54-D55C-4875-8388-4AAC395BB285}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.CoreTests", "02_CleanArchitecture\test\CleanBankingApp.CoreTests\CleanBankingApp.CoreTests.csproj", "{7C092A57-A439-47B2-A297-CAC996BB5A8A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaseBankingApplication", "01_BaseBankingApplication\BaseBankingApplication.csproj", "{8384B7F1-BD09-40CE-B3A6-530FE503A84E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5E5BC2BA-A5FD-402A-96A3-75028FB5F523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E5BC2BA-A5FD-402A-96A3-75028FB5F523}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E5BC2BA-A5FD-402A-96A3-75028FB5F523}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E5BC2BA-A5FD-402A-96A3-75028FB5F523}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0B794DEC-BCBA-4D42-BB13-19227CD799A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0B794DEC-BCBA-4D42-BB13-19227CD799A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B794DEC-BCBA-4D42-BB13-19227CD799A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,17 +39,26 @@ Global
 		{0521CA54-D55C-4875-8388-4AAC395BB285}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0521CA54-D55C-4875-8388-4AAC395BB285}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0521CA54-D55C-4875-8388-4AAC395BB285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C092A57-A439-47B2-A297-CAC996BB5A8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C092A57-A439-47B2-A297-CAC996BB5A8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C092A57-A439-47B2-A297-CAC996BB5A8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C092A57-A439-47B2-A297-CAC996BB5A8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8384B7F1-BD09-40CE-B3A6-530FE503A84E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8384B7F1-BD09-40CE-B3A6-530FE503A84E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8384B7F1-BD09-40CE-B3A6-530FE503A84E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8384B7F1-BD09-40CE-B3A6-530FE503A84E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{5E5BC2BA-A5FD-402A-96A3-75028FB5F523} = {E3357345-55A2-4DA8-B8AF-39E7EDBC6AF2}
 		{0B794DEC-BCBA-4D42-BB13-19227CD799A2} = {85248427-960F-4C97-BA08-F8A09A8BDC42}
 		{85248427-960F-4C97-BA08-F8A09A8BDC42} = {498BBF32-D683-4ED9-AD8C-9DE947B50889}
 		{7642C687-3575-4934-8EDF-010ADD43FE47} = {498BBF32-D683-4ED9-AD8C-9DE947B50889}
 		{4925C1D8-3D4D-4A3C-A426-26E02C437D87} = {85248427-960F-4C97-BA08-F8A09A8BDC42}
 		{0521CA54-D55C-4875-8388-4AAC395BB285} = {85248427-960F-4C97-BA08-F8A09A8BDC42}
+		{7C092A57-A439-47B2-A297-CAC996BB5A8A} = {7642C687-3575-4934-8EDF-010ADD43FE47}
+		{8384B7F1-BD09-40CE-B3A6-530FE503A84E} = {E3357345-55A2-4DA8-B8AF-39E7EDBC6AF2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F98F7453-D022-4841-83AA-742575703BC6}
