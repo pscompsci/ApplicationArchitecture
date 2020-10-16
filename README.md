@@ -12,7 +12,7 @@ The domain entities of the application, representintg the Account and transactio
 
 Overall organisation of the code can be represented at a high-level as:
 
-img src="documents/clean_reorganisation.png" size="800" />
+<img src="documents/clean_reorganisation.png" size="800" />
 
 ## Installation
 
