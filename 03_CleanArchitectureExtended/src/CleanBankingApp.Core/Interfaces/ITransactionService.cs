@@ -13,6 +13,6 @@ namespace CleanBankingApp.Core.Interfaces
         List<Transaction> GetAll();
         int GetCount();
         bool Execute(Transaction transaction);
-        bool Rollback(Transaction transaction);
+        Transaction Rollback(Transaction transaction);
     }
 }

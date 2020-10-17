@@ -68,9 +68,10 @@ namespace CleanBankingApp.Core.Services
             return _transactionRepository.GetCount();
         }
 
-        public bool Rollback(Transaction transaction)
+        public Transaction Rollback(Transaction transaction)
         {
-            return transaction.Rollback();
+            _ = transaction.Rollback();
+            return _transactionRepository.Update(transaction);
         }
     }
 }
