@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Runtime.Serialization;
 using System.Text;
 
-namespace CleanBankingApp.Core.Domain.Exceptions
+namespace CleanBankingApp.Infrastructure.Exceptions
 {
     public class AccountDoesNotExistException : Exception
     {

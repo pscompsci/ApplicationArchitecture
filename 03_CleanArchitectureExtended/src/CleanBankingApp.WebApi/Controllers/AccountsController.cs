@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using CleanBankingApp.Core.Interfaces;
 using CleanBankingApp.Core.Domain.Entities;
 using CleanBankingApp.Core.Domain.Exceptions;
+using CleanBankingApp.Infrastructure.Exceptions;
 
 namespace CleanBankingApp.WebApi.Controllers
 {
