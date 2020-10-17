@@ -43,21 +43,5 @@ namespace CleanBankingApp.Core.Services
         {
             return _accountRepository.GetByName(name);
         }
-
-        public bool Deposit(Account account, decimal amount)
-        {
-            bool success = account.Deposit(amount);
-            if (!success) return false;
-            _accountRepository.Update(account);
-            return true;
-        }
-
-        public bool Withdraw(Account account, decimal amount)
-        {
-            bool success = account.Withdraw(amount);
-            if (!success) return false;
-            _accountRepository.Update(account);
-            return true;
-        }
     }
 }

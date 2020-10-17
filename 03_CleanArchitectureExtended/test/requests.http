@@ -14,14 +14,6 @@ http://localhost:5000/accounts/Elliot
 
 ###
 
-PUT http://localhost:5000/accounts/1/deposit/1000
-
-###
-
-PUT http://localhost:5000/accounts/1/withdraw/500
-
-###
-
 POST http://localhost:5000/accounts
 content-type: application/json
 

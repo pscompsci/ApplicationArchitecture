@@ -18,11 +18,13 @@ namespace CleanBankingApp.Core.Domain.Exceptions
         {
         }
 
-        public NegativeAmountException(string message, Exception innerException) : base(message, innerException)
+        public NegativeAmountException(string message, Exception innerException) 
+            : base(message, innerException)
         {
         }
 
-        protected NegativeAmountException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected NegativeAmountException(SerializationInfo info, StreamingContext context) 
+            : base(info, context)
         {
         }
     }

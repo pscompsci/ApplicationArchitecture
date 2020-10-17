@@ -10,7 +10,5 @@ namespace CleanBankingApp.Core.Interfaces
         Account GetByName(string name);
         Account GetById(int id);
         List<Account> GetAll();
-        bool Deposit(Account account, decimal amount);
-        bool Withdraw(Account account, decimal amount);
     }
 }

@@ -9,7 +9,7 @@ namespace CleanBankingApp.Infrastructure.Exceptions
     public class AccountDoesNotExistException : Exception
     {
         public AccountDoesNotExistException()
-            : base(message: "Account with given Id or Name does not exist")
+            : base(message: "Account does not exist")
         {
         }
 
@@ -18,11 +18,13 @@ namespace CleanBankingApp.Infrastructure.Exceptions
         {
         }
 
-        public AccountDoesNotExistException(string message, Exception innerException) : base(message, innerException)
+        public AccountDoesNotExistException(string message, Exception innerException) 
+            : base(message, innerException)
         {
         }
 
-        protected AccountDoesNotExistException(SerializationInfo info, StreamingContext context) : base(info, context)
+        protected AccountDoesNotExistException(SerializationInfo info, StreamingContext context) 
+            : base(info, context)
         {
         }
     }
