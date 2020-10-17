@@ -1,0 +1,41 @@
+http://localhost:5000/accounts
+
+###
+
+http://localhost:5000/accounts/2
+
+###
+
+http://localhost:5000/accounts/Peter
+
+###
+
+PUT http://localhost:5000/accounts/1/deposit/1000
+
+###
+
+PUT http://localhost:5000/accounts/1/withdraw/500
+
+###
+
+POST http://localhost:5000/accounts
+content-type: application/json
+
+{
+    "name": "Elliot",
+    "balance": 42
+}
+
+###
+
+POST http://localhost:5000/accounts
+content-type: application/json
+
+{
+    "name": "Grace",
+    "balance": 1000
+}
+
+###
+
+

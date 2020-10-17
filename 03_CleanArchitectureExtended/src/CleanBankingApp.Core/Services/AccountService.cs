@@ -29,14 +29,6 @@ namespace CleanBankingApp.Core.Services
             return _accountRepository.Create(account);
         }
 
-        public bool Deposit(Account account, decimal amount)
-        {
-            bool success = account.Deposit(amount);
-            if (!success) return false;
-            _accountRepository.Update(account);
-            return true;
-        }
-
         public List<Account> GetAll()
         {
             return _accountRepository.GetAll().ToList();
@@ -50,6 +42,14 @@ namespace CleanBankingApp.Core.Services
         public Account GetByName(string name)
         {
             return _accountRepository.GetByName(name);
+        }
+
+        public bool Deposit(Account account, decimal amount)
+        {
+            bool success = account.Deposit(amount);
+            if (!success) return false;
+            _accountRepository.Update(account);
+            return true;
         }
 
         public bool Withdraw(Account account, decimal amount)

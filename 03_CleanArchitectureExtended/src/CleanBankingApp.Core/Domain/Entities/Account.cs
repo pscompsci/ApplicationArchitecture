@@ -5,8 +5,10 @@ namespace CleanBankingApp.Core.Domain.Entities
     public class Account
     {
         public int Id { get; private set; }
-        public string Name { get; private set; }
-        public decimal Balance { get; private set; }
+        public string Name { get; set; }
+        public decimal Balance { get; set; }
+
+        public Account() {}
 
         public Account(string name, decimal balance = 0)
         {
