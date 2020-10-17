@@ -18,55 +18,56 @@ namespace CleanBankingApp.Core.Services
 
         public Transaction NewDeposit(Account account, decimal amount)
         {
-            if (account is null)
-                throw new NullReferenceException(Messages.NullAccount);
-
-            if (!IsValidAmount(amount))
-                throw new NegaiveAmountException(Messages.NegativeAmount);
+            Guard.Against.Null(account, "Account");
+            Guard.Against.Negative(amount, "Amount");
 
             DepositTransaction deposit = new DepositTransaction(account, amount);
+
             CreateTransaction(deposit);
             Execute(deposit);
+            
             _transactionRepository.Update(deposit);
+            
             return deposit;
         }
 
         public Transaction NewTransfer(Account from, Account to, decimal amount)
         {
-            if (from is null || to is null)
-                throw new NullReferenceException(Messages.NullAccount);
-
-            if (!IsValidAmount(amount))
-                throw new NegaiveAmountException(Messages.NegativeAmount);
+            Guard.Against.Null(from, "From");
+            Guard.Against.Null(to, "To");
+            Guard.Against.Negative(amount, "Amount");
 
             TransferTransaction transfer = new TransferTransaction(from, to, amount);
+
             CreateTransaction(transfer);
             Execute(transfer);
+
             _transactionRepository.Update(transfer);
+
             return transfer;
         }
 
         public Transaction NewWithdraw(Account account, decimal amount)
         {
-            if (account is null)
-                throw new NullReferenceException(Messages.NullAccount);
-
-            if (!IsValidAmount(amount))
-                throw new NegaiveAmountException(Messages.NegativeAmount);
+            Guard.Against.Null(account, "Account");
+            Guard.Against.Negative(amount, "Amount");
                 
             WithdrawTransaction withdraw = new WithdrawTransaction(account, amount);
+
             CreateTransaction(withdraw);
             Execute(withdraw);
+
             _transactionRepository.Update(withdraw);
+
             return withdraw;
         }
 
-        public Transaction CreateTransaction(Transaction transaction)
+        private Transaction CreateTransaction(Transaction transaction)
         {
             return _transactionRepository.Create(transaction);
         }
 
-        public bool Execute(Transaction transaction)
+        private bool Execute(Transaction transaction)
         {
             try
             {
@@ -96,10 +97,10 @@ namespace CleanBankingApp.Core.Services
 
         public Transaction Rollback(Transaction transaction)
         {
+            Guard.Against.Null(transaction, "Transaction");
+
             _ = transaction.Rollback();
             return _transactionRepository.Update(transaction);
         }
-
-        private bool IsValidAmount(decimal amount) => amount > 0;
     }
 }

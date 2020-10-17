@@ -44,7 +44,7 @@ namespace CleanBankingApp.WebApi.Controllers
             {
                 return Ok(_accounts.GetById(id));
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }
@@ -57,7 +57,7 @@ namespace CleanBankingApp.WebApi.Controllers
             {
                 return Ok(_accounts.GetByName(name));
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 return NotFound(ex.Message);
             }

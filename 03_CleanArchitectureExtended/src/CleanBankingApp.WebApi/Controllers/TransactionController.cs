@@ -34,10 +34,15 @@ namespace CleanBankingApp.WebApi.Controllers
         [HttpPost]
         public ActionResult<TransactionDetailDto> CreateTransaction(CreateTransactionDto dto)
         {
-            Transaction transaction = _manager.CreateFromHttpPost(dto);
-            if (transaction is null) 
-                return NotFound("Structure of the request body is not valid.");
-            return _manager.AsTransactionDetailDto(transaction);
+            try
+            {
+                Transaction transaction = _manager.CreateFromHttpPost(dto);
+                return _manager.AsTransactionDetailDto(transaction);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -49,19 +54,29 @@ namespace CleanBankingApp.WebApi.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<TransactionDetailDto> GetById(int id)
         {
-            Transaction transaction = _transactions.GetById(id);
-            if (transaction is null) 
-                return NotFound($"Transaction with Id: {id}, does not exist");
-            return _manager.AsTransactionDetailDto(transaction);
+            try
+            {
+                Transaction transaction = _transactions.GetById(id);
+                return _manager.AsTransactionDetailDto(transaction);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPut("{id:int}/rollback")]
         public ActionResult<TransactionDetailDto> Rollback(int id)
         {
-            Transaction transaction = _manager.Rollback(id);
-            if (transaction is null) 
-                return NotFound($"Transaction with Id: {id}, does not exist, or already reversed.");
-            return _manager.AsTransactionDetailDto(transaction);
+            try
+            {
+                Transaction transaction = _manager.Rollback(id);
+                return _manager.AsTransactionDetailDto(transaction);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

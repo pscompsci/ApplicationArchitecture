@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using CleanBankingApp.Core.Constants;
 using System.IO;
+using CleanBankingApp.Core;
 
 namespace CleanBankingApp.Core.Services
 {
@@ -21,24 +22,16 @@ namespace CleanBankingApp.Core.Services
 
         public Account NewAccount(string name, decimal balance)
         {
-            if (!IsValidName(name))
-                throw new InvalidDataException(Messages.InvalidAccountName);
+            Guard.Against.NullOrEmpty(name, "Name");
+            Guard.Against.Negative(balance, "Balance");
 
-            if (!IsValidAmount(balance))
-                throw new NegativeAmountException(Messages.NegativeBalance);
-
-            Account account = new Account(name, balance);
-            
-            return CreateAccount(account);
+            return CreateAccount(new Account(name, balance));
         }
 
         public Account CreateAccount(Account account)
         {
-            if (!IsValidName(account.Name))
-                throw new InvalidDataException(Messages.InvalidAccountName);
-
-            if (!IsValidAmount(account.Balance))
-                throw new NegativeAmountException(Messages.NegativeBalance);
+            Guard.Against.NullOrEmpty(account.Name, "Name");
+            Guard.Against.Negative(account.Balance, "Balance");
 
             return _accountRepository.Create(account);
         }
@@ -51,28 +44,19 @@ namespace CleanBankingApp.Core.Services
         public Account GetById(int id)
         {
             Account account = _accountRepository.GetById(id);
-
-            if (account is null)
-                throw new NullReferenceException($"Account with Id: {id}, not found");
+            Guard.Against.Null(account, "Account");
             
             return account;
         }
 
         public Account GetByName(string name)
         {
-            if (!IsValidName(name))
-                throw new InvalidDataException(Messages.InvalidAccountName);
+            Guard.Against.NullOrEmpty(name, "Name");
 
             Account account = _accountRepository.GetByName(name);
-
-            if (account is null)
-                throw new NullReferenceException($"Account with Name: {name}, not found");
+            Guard.Against.Null(account, "Account"); ;
 
             return account;
         }
-
-        private bool IsValidName(string name) => !String.IsNullOrEmpty(name);
-
-        private bool IsValidAmount(decimal amount) => amount > 0;
     }
 }
