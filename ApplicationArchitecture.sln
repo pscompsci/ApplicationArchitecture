@@ -40,8 +40,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.Infrastruct
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5697F055-93E5-4DBA-847D-CBA7AAFF0B1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.CoreTests", "03_CleanArchitectureExtended\test\CleanBankingApp.CoreTests\CleanBankingApp.CoreTests.csproj", "{42CD90D4-3D23-42DB-94C0-173A0F52E738}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.WebApi", "03_CleanArchitectureExtended\src\CleanBankingApp.WebApi\CleanBankingApp.WebApi.csproj", "{821E3BA9-3EF8-491C-987A-4F412B1DFCE1}"
 EndProject
 Global

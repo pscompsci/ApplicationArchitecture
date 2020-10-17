@@ -50,7 +50,15 @@ namespace CleanBankingApp.Core.Services
 
         public bool Execute(Transaction transaction)
         {
-            return transaction.Execute();
+            try
+            {
+                transaction.Execute();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public List<Transaction> GetAll()

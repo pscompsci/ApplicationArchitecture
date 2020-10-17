@@ -25,6 +25,8 @@ namespace CleanBankingApp.Core.Domain.Entities
 
         public override bool Rollback()
         {
+            if (!Success) return false;
+            
             base.Rollback();
             Reversed = Account.Deposit(Amount);
             return Reversed;

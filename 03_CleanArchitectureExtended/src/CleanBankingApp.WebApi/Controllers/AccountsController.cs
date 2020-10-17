@@ -20,8 +20,13 @@ namespace CleanBankingApp.WebApi.Controllers
         [HttpPost]
         public ActionResult<Account> PostAccount(Account account)
         {
-            Account result = _accounts.CreateAccount(account);
-            return result;
+            if (string.IsNullOrEmpty(account.Name)) 
+                return BadRequest("Name is required.");
+            
+            if (account.Balance < 0)
+                return BadRequest("Initial balance required ($0.00 or more");
+
+            return _accounts.CreateAccount(account);
         }
 
         [HttpGet]
@@ -33,30 +38,18 @@ namespace CleanBankingApp.WebApi.Controllers
         [HttpGet("{id:int}")]
         public ActionResult<Account> GetById(int id)
         {
-            Account account;
-            try
-            {
-                account = _accounts.GetById(id);
-            }
-            catch (AccountDoesNotExistException ex)
-            {
-                return Conflict(ex.Message);
-            }
+            Account account = _accounts.GetById(id);
+            if (account is null) 
+                return BadRequest($"Account with Id: {id}, does not exist.");
             return account;
         }
 
         [HttpGet("{name}")]
         public ActionResult<Account> GetByName(string name)
         {
-            Account account;
-            try
-            {
-                account = _accounts.GetByName(name);
-            }
-            catch (AccountDoesNotExistException ex)
-            {
-                return Conflict(ex.Message);
-            }
+            Account account = _accounts.GetByName(name);
+            if (account is null)
+                return BadRequest($"Account with Name: {name}, does not exist.");
             return account;
         }        
     }

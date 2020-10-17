@@ -18,58 +18,50 @@ namespace CleanBankingApp.WebApi.Controllers
     {
         private readonly IAccountService _accounts;
         private readonly ITransactionService _transactions;
+        private readonly ITransactionsManager _manager;
 
-        public TransactionsController(IAccountService accounts, ITransactionService transactions)
+        public TransactionsController(
+            IAccountService accounts, 
+            ITransactionService transactions,
+            ITransactionsManager manager
+        )
         {
             _accounts = accounts;
             _transactions = transactions;
+            _manager = manager;
         }
 
         [HttpPost]
-        public ActionResult<Transaction> CreateTransaction(CreateTransactionDto dto)
+        public ActionResult<TransactionDetailDto> CreateTransaction(CreateTransactionDto dto)
         {
-            try
-            {
-                Transactions t = new Transactions(_accounts, _transactions);
-                return t.CreateFromHttpPost(dto);
-            }
-            catch (Exception exception)
-            {
-                return NotFound(exception.Message);
-            }
+            Transaction transaction = _manager.CreateFromHttpPost(dto);
+            if (transaction is null) 
+                return NotFound("Structure of the request body is not valid.");
+            return _manager.AsTransactionDetailDto(transaction);
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Transaction>> Get()
+        public ActionResult<IEnumerable<TransactionDetailDto>> Get()
         {
-            return _transactions.GetAll();
+            return _manager.AsTransactionDetailDtoList(_transactions.GetAll());
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<Transaction> GetById(int id)
+        public ActionResult<TransactionDetailDto> GetById(int id)
         {
-            try
-            {
-               return _transactions.GetById(id);
-            }
-            catch (TransactionDoesNotExistException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            Transaction transaction = _transactions.GetById(id);
+            if (transaction is null) 
+                return NotFound($"Transaction with Id: {id}, does not exist");
+            return _manager.AsTransactionDetailDto(transaction);
         }
 
         [HttpPut("{id:int}/rollback")]
-        public ActionResult<Transaction> Rollback(int id)
+        public ActionResult<TransactionDetailDto> Rollback(int id)
         {
-            try
-            {
-                Transactions t = new Transactions(_accounts, _transactions);
-                return t.Rollback(id);
-            }
-            catch (Exception exception)
-            {
-                return NotFound(exception.Message);
-            }
+            Transaction transaction = _manager.Rollback(id);
+            if (transaction is null) 
+                return NotFound($"Transaction with Id: {id}, does not exist, or already reversed.");
+            return _manager.AsTransactionDetailDto(transaction);
         }
     }
 }

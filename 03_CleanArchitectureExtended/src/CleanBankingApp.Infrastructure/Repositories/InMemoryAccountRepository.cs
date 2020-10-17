@@ -31,8 +31,7 @@ namespace CleanBankingApp.Infrastructure.Repositories
             foreach (var account in FakeDB.Accounts)
                 if (account.Name == name) return account;
 
-            throw new AccountDoesNotExistException(
-                $"Account with Name: {name}, does not exist.");
+            return null;
         }
 
         public Account GetById(int id)
@@ -40,16 +39,14 @@ namespace CleanBankingApp.Infrastructure.Repositories
             foreach (var account in FakeDB.Accounts)
                 if (account.Id == id) return account;
 
-            throw new AccountDoesNotExistException(
-                $"Account with Id: {id}, does not exist.");
+            return null;
         }
 
         public Account Update(Account account)
         {
             Account result = GetById(account.Id);
             
-            if (result is null)
-                throw new AccountDoesNotExistException();
+            if (result is null) return null;
 
             result = account;
             return result;

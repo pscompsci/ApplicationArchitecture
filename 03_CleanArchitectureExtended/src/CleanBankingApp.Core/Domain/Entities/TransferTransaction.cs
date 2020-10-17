@@ -29,6 +29,8 @@ namespace CleanBankingApp.Core.Domain.Entities
 
         public override bool Rollback()
         {
+            if (!Success) return false;
+            
             base.Rollback();
             To.Withdraw(Amount); // throws InsufficientFundsException
             Reversed = From.Deposit(Amount);
