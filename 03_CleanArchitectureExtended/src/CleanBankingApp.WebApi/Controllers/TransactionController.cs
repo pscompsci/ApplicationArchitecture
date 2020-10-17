@@ -1,13 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using CleanBankingApp.Core.Interfaces;
 using CleanBankingApp.Core.Domain.Entities;
-using CleanBankingApp.Core.Domain.Exceptions;
-using CleanBankingApp.Infrastructure.Exceptions;
 using CleanBankingApp.WebApi.DTO;
 
 namespace CleanBankingApp.WebApi.Controllers

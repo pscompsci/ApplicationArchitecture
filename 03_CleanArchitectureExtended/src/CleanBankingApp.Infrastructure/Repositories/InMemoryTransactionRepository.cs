@@ -1,7 +1,7 @@
 using CleanBankingApp.Core.Domain.Entities;
 using CleanBankingApp.Core.Interfaces;
-using System;
 using System.Collections.Generic;
+using System;
 
 namespace CleanBankingApp.Infrastructure.Repositories
 {

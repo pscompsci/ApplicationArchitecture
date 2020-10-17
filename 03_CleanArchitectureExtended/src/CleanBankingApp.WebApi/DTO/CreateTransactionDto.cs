@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CleanBankingApp.Core.Domain.Enums;
+﻿using CleanBankingApp.Core.Domain.Enums;
 
 namespace CleanBankingApp.WebApi.DTO
 {

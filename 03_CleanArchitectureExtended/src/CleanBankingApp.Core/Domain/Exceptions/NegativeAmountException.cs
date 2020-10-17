@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Runtime.Serialization;
-using System.Text;
-
 namespace CleanBankingApp.Core.Domain.Exceptions
 {
     public class NegativeAmountException : Exception

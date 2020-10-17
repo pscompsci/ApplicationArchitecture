@@ -1,13 +1,7 @@
 ﻿using CleanBankingApp.Core.Domain.Entities;
-using CleanBankingApp.Core.Domain.Exceptions;
 using CleanBankingApp.Core.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using CleanBankingApp.Core.Constants;
-using System.IO;
-using CleanBankingApp.Core;
 
 namespace CleanBankingApp.Core.Services
 {
