@@ -6,6 +6,10 @@ http://localhost:5000/accounts/2
 
 ###
 
+http://localhost:5000/accounts/-1
+
+###
+
 http://localhost:5000/accounts/20
 
 ###
@@ -15,6 +19,26 @@ http://localhost:5000/accounts/Peter
 ###
 
 http://localhost:5000/accounts/Elliot
+
+###
+
+POST http://localhost:5000/accounts
+content-type: application/json
+
+{ 
+    "name": null,
+    "balance": 100
+}
+
+###
+
+POST http://localhost:5000/accounts
+content-type: application/json
+
+{ 
+    "name": "Test",
+    "balance": -100
+}
 
 ###
 

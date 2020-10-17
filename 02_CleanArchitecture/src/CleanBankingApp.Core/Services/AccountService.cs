@@ -3,6 +3,7 @@ using CleanBankingApp.Core.Domain.Exceptions;
 using CleanBankingApp.Core.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -19,7 +20,6 @@ namespace CleanBankingApp.Core.Services
 
         public Account NewAccount(string name, decimal balance)
         {
-            // TODO: Decide what to do if negative balance is passed in
             Account account = new Account(name, balance);
             return CreateAccount(account);
         }

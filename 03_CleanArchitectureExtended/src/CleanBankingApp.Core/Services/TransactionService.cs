@@ -18,6 +18,12 @@ namespace CleanBankingApp.Core.Services
 
         public Transaction NewDeposit(Account account, decimal amount)
         {
+            if (account is null)
+                throw new NullReferenceException(Messages.NullAccount);
+
+            if (!IsValidAmount(amount))
+                throw new NegaiveAmountException(Messages.NegativeAmount);
+
             DepositTransaction deposit = new DepositTransaction(account, amount);
             CreateTransaction(deposit);
             Execute(deposit);
@@ -27,6 +33,12 @@ namespace CleanBankingApp.Core.Services
 
         public Transaction NewTransfer(Account from, Account to, decimal amount)
         {
+            if (from is null || to is null)
+                throw new NullReferenceException(Messages.NullAccount);
+
+            if (!IsValidAmount(amount))
+                throw new NegaiveAmountException(Messages.NegativeAmount);
+
             TransferTransaction transfer = new TransferTransaction(from, to, amount);
             CreateTransaction(transfer);
             Execute(transfer);
@@ -36,6 +48,12 @@ namespace CleanBankingApp.Core.Services
 
         public Transaction NewWithdraw(Account account, decimal amount)
         {
+            if (account is null)
+                throw new NullReferenceException(Messages.NullAccount);
+
+            if (!IsValidAmount(amount))
+                throw new NegaiveAmountException(Messages.NegativeAmount);
+                
             WithdrawTransaction withdraw = new WithdrawTransaction(account, amount);
             CreateTransaction(withdraw);
             Execute(withdraw);
@@ -81,5 +99,7 @@ namespace CleanBankingApp.Core.Services
             _ = transaction.Rollback();
             return _transactionRepository.Update(transaction);
         }
+
+        private bool IsValidAmount(decimal amount) => amount > 0;
     }
 }

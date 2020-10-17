@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CleanBankingApp.Core.Constants;
+using System.IO;
 
 namespace CleanBankingApp.Core.Services
 {
@@ -19,13 +21,25 @@ namespace CleanBankingApp.Core.Services
 
         public Account NewAccount(string name, decimal balance)
         {
-            // TODO: Decide what to do if negative balance is passed in
+            if (!IsValidName(name))
+                throw new InvalidDataException(Messages.InvalidAccountName);
+
+            if (!IsValidAmount(balance))
+                throw new NegativeAmountException(Messages.NegativeBalance);
+
             Account account = new Account(name, balance);
+            
             return CreateAccount(account);
         }
 
         public Account CreateAccount(Account account)
         {
+            if (!IsValidName(account.Name))
+                throw new InvalidDataException(Messages.InvalidAccountName);
+
+            if (!IsValidAmount(account.Balance))
+                throw new NegativeAmountException(Messages.NegativeBalance);
+
             return _accountRepository.Create(account);
         }
 
@@ -36,12 +50,29 @@ namespace CleanBankingApp.Core.Services
 
         public Account GetById(int id)
         {
-            return _accountRepository.GetById(id);
+            Account account = _accountRepository.GetById(id);
+
+            if (account is null)
+                throw new NullReferenceException($"Account with Id: {id}, not found");
+            
+            return account;
         }
 
         public Account GetByName(string name)
         {
-            return _accountRepository.GetByName(name);
+            if (!IsValidName(name))
+                throw new InvalidDataException(Messages.InvalidAccountName);
+
+            Account account = _accountRepository.GetByName(name);
+
+            if (account is null)
+                throw new NullReferenceException($"Account with Name: {name}, not found");
+
+            return account;
         }
+
+        private bool IsValidName(string name) => !String.IsNullOrEmpty(name);
+
+        private bool IsValidAmount(decimal amount) => amount > 0;
     }
 }
