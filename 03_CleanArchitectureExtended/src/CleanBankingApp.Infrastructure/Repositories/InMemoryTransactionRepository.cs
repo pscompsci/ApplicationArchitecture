@@ -7,23 +7,20 @@ namespace CleanBankingApp.Infrastructure.Repositories
 {
     public class InMemoryTransactionRepository : ITransactionRepository
     {
-        private readonly List<Transaction> _transactions;
-
         public InMemoryTransactionRepository()
         {
-            _transactions = new List<Transaction>();
         }
 
         public Transaction Create(Transaction transaction)
         {
-            transaction.SetId(_transactions.Count + 1);
-            _transactions.Add(transaction);
+            transaction.SetId(FakeDB.Transactions.Count + 1);
+            FakeDB.Transactions.Add(transaction);
             return transaction;
         }
 
         public IEnumerable<Transaction> GetAll()
         {
-            return _transactions;
+            return FakeDB.Transactions;
         }
 
         public Transaction GetByName(string name)
@@ -33,7 +30,7 @@ namespace CleanBankingApp.Infrastructure.Repositories
 
         public Transaction GetById(int id)
         {
-            foreach (var transaction in _transactions)
+            foreach (var transaction in FakeDB.Transactions)
                 if (transaction.Id == id) return transaction;
             return null;
         }
@@ -48,7 +45,7 @@ namespace CleanBankingApp.Infrastructure.Repositories
 
         public int GetCount()
         {
-            return _transactions.Count;
+            return FakeDB.Transactions.Count;
         }
     }
 }

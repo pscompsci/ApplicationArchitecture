@@ -11,7 +11,7 @@ This repository builds on a banking application developed in Object-Oriented Pro
     * Re-organisation of the base application
     * Essentially equivalent functionality
 
-* 03_CleanArchitecture_SQL_WebApi
+* 03_CleanArchitectureExtended
     * Extension of 02 to replace the in-memory repository and UI
     * SQL Server database added for persistence
     * WebAPI added for presentation

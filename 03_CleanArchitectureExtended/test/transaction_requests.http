@@ -1,0 +1,39 @@
+http://localhost:5000/transactions
+
+###
+
+http://localhost:5000/transactions/2
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "ToAccountId": 1,
+    "Type": "Deposit",
+    "Amount": 500
+}
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "FromAccountId": 1,
+    "Type": "Withdraw",
+    "Amount": 500
+}
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "FromAccountId": 1,
+    "ToAccountId": 2,
+    "Type": "Transfer",
+    "Amount": 300
+}

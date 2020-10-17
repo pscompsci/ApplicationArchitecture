@@ -32,6 +32,7 @@ namespace CleanBankingApp.WebApi
             services.AddScoped<IAccountService, AccountService>();
             
             services.AddScoped<ITransactionRepository, InMemoryTransactionRepository>();
+            services.AddScoped<ITransactionService, TransactionService>();
 
             services.AddControllers();
         }
