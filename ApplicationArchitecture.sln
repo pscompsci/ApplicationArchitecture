@@ -31,6 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03_CleanArchitecture_WebApi", "03_CleanArchitecture_WebApi", "{39E4AF9F-C161-4A08-8D0E-AFEEF68A6DC7}"
+	ProjectSection(SolutionItems) = preProject
+		03_CleanArchitecture_WebApi\README.md = 03_CleanArchitecture_WebApi\README.md
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D35B45C-C498-419C-A2C3-727F333CEE43}"
 EndProject
@@ -50,11 +53,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04_CleanArchitecture_SQL", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DFEADB6B-C247-4CB0-82BB-AD7819C3811F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.Core", "04_CleanArchitecture_SQL\src\CleanBankingApp.Core\CleanBankingApp.Core.csproj", "{9BF57D3D-BF2A-43D2-9C34-5A523B7772C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.Core", "04_CleanArchitecture_SQL\src\CleanBankingApp.Core\CleanBankingApp.Core.csproj", "{9BF57D3D-BF2A-43D2-9C34-5A523B7772C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.Infrastructure", "04_CleanArchitecture_SQL\src\CleanBankingApp.Infrastructure\CleanBankingApp.Infrastructure.csproj", "{C2C5DD3B-3D29-4B32-B36F-4E6376D649DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.Infrastructure", "04_CleanArchitecture_SQL\src\CleanBankingApp.Infrastructure\CleanBankingApp.Infrastructure.csproj", "{C2C5DD3B-3D29-4B32-B36F-4E6376D649DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanBankingApp.WebApi", "04_CleanArchitecture_SQL\src\CleanBankingApp.WebApi\CleanBankingApp.WebApi.csproj", "{A748182A-0B43-4742-BC8C-139A53F84871}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CleanBankingApp.WebApi", "04_CleanArchitecture_SQL\src\CleanBankingApp.WebApi\CleanBankingApp.WebApi.csproj", "{A748182A-0B43-4742-BC8C-139A53F84871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
