@@ -1,0 +1,57 @@
+http://localhost:5000/transactions
+
+###
+
+http://localhost:5000/transactions/2
+
+###
+
+http://localhost:5000/transactions/20
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "ToAccountId": 1,
+    "Type": 1,
+    "Amount": 500
+}
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "ToAccountId": 1,
+    "Amount": 500
+}
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "FromAccountId": 1,
+    "Type": 2,
+    "Amount": 200
+}
+
+###
+
+POST http://localhost:5000/transactions
+content-type: application/json
+
+{
+    "FromAccountId": 1,
+    "ToAccountId": 2,
+    "Type": 3,
+    "Amount": 300
+}
+
+###
+
+PUT http://localhost:5000/transactions/3/rollback
