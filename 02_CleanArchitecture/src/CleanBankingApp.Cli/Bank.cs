@@ -11,10 +11,10 @@ namespace CleanBankingApp.Cli
         private readonly IAccountService _accounts;
         private readonly ITransactionService _transactions;
 
-        public Bank()
+        public Bank(IAccountService accounts, ITransactionService transactions)
         {
-            _accounts = new AccountService(new InMemoryAccountRepository());
-            _transactions = new TransactionService(new InMemoryTransactionRepository());
+            _accounts = accounts;
+            _transactions = transactions;
         }
 
         private string InputAccountName()

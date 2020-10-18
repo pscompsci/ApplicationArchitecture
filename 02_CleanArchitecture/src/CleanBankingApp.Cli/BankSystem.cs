@@ -1,4 +1,5 @@
 using CleanBankingApp.Core.Interfaces;
+using CleanBankingApp.Core.Services;
 using CleanBankingApp.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +11,11 @@ namespace CleanBankingApp.Cli
         {
             var services = new ServiceCollection();
             services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+
             services.AddScoped<ITransactionRepository, InMemoryTransactionRepository>();
+            services.AddScoped<ITransactionService, TransactionService>();
+
             services.AddScoped<IBank, Bank>();
 
             var provider = services.BuildServiceProvider();
