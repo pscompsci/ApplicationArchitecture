@@ -4,7 +4,7 @@ namespace CleanBankingApp.Core.Domain.Entities
 {
     public class WithdrawTransaction : Transaction
     {
-        public Account Account { get; private set; }
+        public Account Account { get; set; }
 
         public WithdrawTransaction(Account account, decimal amount)
             : base(amount, "Withdraw")

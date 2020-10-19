@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using CleanBankingApp.Core.Interfaces;
 using CleanBankingApp.Core.Services;
 using CleanBankingApp.Infrastructure.Repositories;
+using CleanBankingApp.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanBankingApp.WebApi
 {
@@ -21,12 +23,13 @@ namespace CleanBankingApp.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IAccountRepository, InMemoryAccountRepository>();
-            services.AddScoped<IAccountService, AccountService>();
-            
-            services.AddScoped<ITransactionRepository, InMemoryTransactionRepository>();
-            services.AddScoped<ITransactionService, TransactionService>();
+            services.AddDbContext<AppDBContext>(opt => opt.UseInMemoryDatabase("BankingDB"));
 
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
+            services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<ITransactionsManager, TransactionsManager>();
 
             services.AddControllers();
@@ -38,6 +41,19 @@ namespace CleanBankingApp.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                using var scope = app.ApplicationServices.CreateScope();
+                var ctx = scope.ServiceProvider.GetService<AppDBContext>();
+                ctx.Accounts.Add(new Core.Domain.Entities.Account()
+                {
+                    Name = "Peter",
+                    Balance = 500
+                });
+                ctx.Accounts.Add(new Core.Domain.Entities.Account()
+                {
+                    Name = "Kay",
+                    Balance = 600
+                });
+                ctx.SaveChanges();
             }
 
             app.UseHttpsRedirection();

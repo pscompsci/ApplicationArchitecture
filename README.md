@@ -21,6 +21,6 @@ This repository builds on a banking application developed in Object-Oriented Pro
         * static FakeDB created that now contains the lists
 
 * 04_CleanArchitecture_SQL
-    * Extension of 03 to replace the static FakeDB with a SQL Server database
+    * Extension of 03 to replace the static FakeDB with a SQL Server database and a SQLite database
     * Utilises Entity Framework
-    * Although Entity Framework implements the Repository Pattern internally, it has been explicitly implemented here as part of exploring architectural approaches
+    * Although Entity Framework implements the Repository Pattern internally, it has been explicitly implemented here as part of exploring architectural approaches and also supports use of the SQLite implementation

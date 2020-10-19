@@ -4,8 +4,8 @@ namespace CleanBankingApp.Core.Domain.Entities
 {
     public class TransferTransaction : Transaction
     {
-        public Account From { get; private set; }
-        public Account To { get; private set; }
+        public Account From { get; set; }
+        public Account To { get; set; }
 
         public TransferTransaction(Account from, Account to, decimal amount)
             : base(amount, "Transfer")

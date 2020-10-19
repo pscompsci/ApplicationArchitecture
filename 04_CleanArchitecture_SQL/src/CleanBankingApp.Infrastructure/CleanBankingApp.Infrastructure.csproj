@@ -8,4 +8,8 @@
     <ProjectReference Include="..\CleanBankingApp.Core\CleanBankingApp.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0-rc.2.20475.6" />
+  </ItemGroup>
+
 </Project>

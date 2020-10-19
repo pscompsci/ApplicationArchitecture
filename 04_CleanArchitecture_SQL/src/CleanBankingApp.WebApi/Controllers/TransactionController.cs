@@ -11,17 +11,17 @@ namespace CleanBankingApp.WebApi.Controllers
     [Route("[controller]")]
     public class TransactionsController : ControllerBase
     {
-        private readonly IAccountService _accounts;
+        // private readonly IAccountService _accounts;
         private readonly ITransactionService _transactions;
         private readonly ITransactionsManager _manager;
 
         public TransactionsController(
-            IAccountService accounts, 
+            // IAccountService accounts, 
             ITransactionService transactions,
             ITransactionsManager manager
         )
         {
-            _accounts = accounts;
+            // _accounts = accounts;
             _transactions = transactions;
             _manager = manager;
         }

@@ -1,12 +1,14 @@
 ﻿using CleanBankingApp.Core.Domain.Exceptions;
+using System.Collections.Generic;
 
 namespace CleanBankingApp.Core.Domain.Entities
 {
     public class Account
     {
-        public int Id { get; private set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Balance { get; set; }
+        public List<Transaction> Transactions { get; set; } = new List<Transaction>();
 
         public Account() {}
 

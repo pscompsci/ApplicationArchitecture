@@ -3,15 +3,15 @@ using System;
 
 namespace CleanBankingApp.Core.Domain.Entities
 {
-    public abstract class Transaction
+    public class Transaction
     {
-        public int Id { get; private set; }
-        public string Type { get; private set; }
-        public decimal Amount { get; private set; }
-        public bool Success { get; protected set; }
-        public bool Executed { get; protected set; }
-        public bool Reversed { get; protected set; }
-        public DateTime DateStamp { get; private set; }
+        public int Id { get; set; }
+        public string Type { get; set; }
+        public decimal Amount { get; set; }
+        public bool Success { get; set; }
+        public bool Executed { get; set; }
+        public bool Reversed { get; set; }
+        public DateTime DateStamp { get; set; }
         public string Status 
         {
             get
@@ -20,6 +20,10 @@ namespace CleanBankingApp.Core.Domain.Entities
                 else if (Executed && Success) return "Complete";
                 else if (Executed) return "Incomplete";
                 else return "Pending";
+            }
+            set
+            {
+
             }
         }
 
