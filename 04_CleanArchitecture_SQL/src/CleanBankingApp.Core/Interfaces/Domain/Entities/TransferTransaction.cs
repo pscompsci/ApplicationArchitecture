@@ -1,4 +1,5 @@
 using CleanBankingApp.Core.Domain.Exceptions;
+using System;
 
 namespace CleanBankingApp.Core.Domain.Entities
 {
@@ -27,9 +28,10 @@ namespace CleanBankingApp.Core.Domain.Entities
             return true;
         }
 
-        public override bool Rollback()
+        public override Transaction Rollback()
         {
-            if (!Success) return false;
+            if (!Success) throw new ArgumentOutOfRangeException(
+                "Not yet successfully completed. Nothing to rollback");
             
             base.Rollback();
             To.Withdraw(Amount); // throws InsufficientFundsException
@@ -37,9 +39,9 @@ namespace CleanBankingApp.Core.Domain.Entities
             if (!Reversed)
             {
                 To.Deposit(Amount);
-                return false;
+                return this;
             }
-            return true;
+            return this;
         }
     }
 }

@@ -9,7 +9,5 @@ namespace CleanBankingApp.WebApi
         Account GetById(int id);
         Transaction CreateFromHttpPost(CreateTransactionDto dto);
         Transaction Rollback(int id);
-        TransactionDetailDto AsTransactionDetailDto(Transaction transaction);
-        List<TransactionDetailDto> AsTransactionDetailDtoList(IEnumerable<Transaction> transactions);
     }
 }

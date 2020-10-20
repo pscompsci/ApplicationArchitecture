@@ -166,6 +166,15 @@ namespace CleanBankingApp.Core
             return input;
         }
 
+        public static int Zero(
+            this IGuardClause guardClause,
+            int input,
+            string parameterName
+        )
+        {
+            return Zero<int>(guardClause, input, parameterName);
+        }
+
         public static long Zero(
             this IGuardClause guardClause,
             long input,

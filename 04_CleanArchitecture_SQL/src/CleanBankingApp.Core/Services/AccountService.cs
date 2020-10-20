@@ -1,7 +1,9 @@
 ﻿using CleanBankingApp.Core.Domain.Entities;
+using CleanBankingApp.Core.Domain.Exceptions;
 using CleanBankingApp.Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace CleanBankingApp.Core.Services
 {
@@ -38,8 +40,8 @@ namespace CleanBankingApp.Core.Services
         public Account GetById(int id)
         {
             Account account = _accountRepository.GetById(id);
-            Guard.Against.Null(account, "Account");
-            
+
+            if (account is null) throw new NullReferenceException();
             return account;
         }
 

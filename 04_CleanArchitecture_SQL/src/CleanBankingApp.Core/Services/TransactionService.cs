@@ -1,4 +1,5 @@
 using CleanBankingApp.Core.Domain.Entities;
+using CleanBankingApp.Core.Domain.Enums;
 using CleanBankingApp.Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -25,8 +26,6 @@ namespace CleanBankingApp.Core.Services
             CreateTransaction(deposit);
             Execute(deposit);
             
-            _transactionRepository.Update(deposit);
-            
             return deposit;
         }
 
@@ -41,8 +40,6 @@ namespace CleanBankingApp.Core.Services
             CreateTransaction(transfer);
             Execute(transfer);
 
-            _transactionRepository.Update(transfer);
-
             return transfer;
         }
 
@@ -55,8 +52,6 @@ namespace CleanBankingApp.Core.Services
 
             CreateTransaction(withdraw);
             Execute(withdraw);
-
-            _transactionRepository.Update(withdraw);
 
             return withdraw;
         }
@@ -98,8 +93,23 @@ namespace CleanBankingApp.Core.Services
         {
             Guard.Against.Null(transaction, "Transaction");
 
-            _ = transaction.Rollback();
-            return _transactionRepository.Update(transaction);
+            switch (transaction.Type)
+            {
+                case "Deposit":
+                    transaction = transaction as DepositTransaction;
+                    break;
+                case "Withdraw":
+                    transaction = transaction as WithdrawTransaction;
+                    break;
+                case "Transfer":
+                    transaction = transaction as TransferTransaction;
+                    break;
+                default:
+                    return null;
+            }
+
+            transaction.Rollback();
+            return _transactionRepository.Update(transaction); 
         }
     }
 }

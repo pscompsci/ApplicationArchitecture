@@ -4,18 +4,19 @@ using CleanBankingApp.Core.Interfaces;
 using CleanBankingApp.Infrastructure.Exceptions;
 using CleanBankingApp.WebApi.DTO;
 using System.Collections.Generic;
+using CleanBankingApp.Core;
 
 namespace CleanBankingApp.WebApi
 {
     public class TransactionsManager : ITransactionsManager
     {
         private readonly IAccountService _accounts;
-        private readonly ITransactionService _transactions;
+        private readonly ITransactionService _transactionService;
 
         public TransactionsManager(IAccountService accounts, ITransactionService transactions)
         {
             _accounts = accounts;
-            _transactions = transactions;
+            _transactionService = transactions;
         }
 
         public Account GetById(int id)
@@ -28,20 +29,20 @@ namespace CleanBankingApp.WebApi
         private DepositTransaction CreateDeposit(int id, decimal amount)
         {
             Account account = GetById(id);
-            return (DepositTransaction)_transactions.NewDeposit(account, amount);
+            return (DepositTransaction)_transactionService.NewDeposit(account, amount);
         }
 
         private WithdrawTransaction CreateWithdraw(int id, decimal amount)
         {
             Account account = GetById(id);
-            return (WithdrawTransaction)_transactions.NewWithdraw(account, amount);
+            return (WithdrawTransaction)_transactionService.NewWithdraw(account, amount);
         }
 
         private TransferTransaction CreateTransfer(int fromId, int toId, decimal amount)
         {
             Account from = GetById(fromId);
             Account to = GetById(toId);
-            return (TransferTransaction)_transactions.NewTransfer(from, to, amount);
+            return (TransferTransaction)_transactionService.NewTransfer(from, to, amount);
         }
 
         public Transaction CreateFromHttpPost(CreateTransactionDto dto)
@@ -55,77 +56,40 @@ namespace CleanBankingApp.WebApi
                 TransactionType.Transfer => CreateTransfer(dto.FromAccountId, dto.ToAccountId, dto.Amount),
                 _ => null
             };
+            
             return transaction;
         }
 
         public Transaction Rollback(int id)
         {
-            Transaction transaction = _transactions.GetById(id);
-            return _transactions.Rollback(transaction);
+            Transaction transaction = _transactionService.GetById(id);
+            return _transactionService.Rollback(transaction);
+
         }
 
         private bool ValidateDto(CreateTransactionDto dto)
         {
-            if (dto.Type is 0) return false;
+            Guard.Against.Null(dto, "Transaction");
+            Guard.Against.Negative(dto.Amount, "Amount");
+            Guard.Against.Zero((int)dto.Type, "");
 
-            switch(dto.Type)
+            switch (dto.Type)
             {
-            case TransactionType.Deposit:
-                if (dto.ToAccountId is 0) return false;
-                break;
-            case TransactionType.Withdraw:
-                if (dto.FromAccountId is 0) return false;
-                break;
-            case TransactionType.Transfer:
-                if (dto.FromAccountId is 0 ||
-                    dto.ToAccountId is 0
-                ) return false;
-                break;
-            default:
-                return false;
-            }
-
-            if (dto.Amount <= 0) return false;
+                case TransactionType.Deposit: 
+                    Guard.Against.Zero(dto.ToAccountId, ""); 
+                    break;
+                case TransactionType.Withdraw:
+                    Guard.Against.Zero(dto.FromAccountId, "");
+                    break;
+                case TransactionType.Transfer:
+                    Guard.Against.Zero(dto.ToAccountId, "");
+                    Guard.Against.Zero(dto.FromAccountId, "");
+                    break;
+                default:
+                    return false;
+            };
 
             return true;
-        }
-
-        public TransactionDetailDto AsTransactionDetailDto(Transaction transaction)
-        {
-            TransactionDetailDto dto = new TransactionDetailDto();
-            switch (transaction.Type)
-            {
-            case "Deposit":
-                DepositTransaction deposit = transaction as DepositTransaction;
-                dto.ToAccountId = deposit.Account.Id;
-                break;
-            case "Withdraw":
-                WithdrawTransaction withdraw = transaction as WithdrawTransaction;
-                dto.FromAccountId = withdraw.Account.Id;
-                break;
-            case "Transfer":
-                TransferTransaction transfer = transaction as TransferTransaction;
-                dto.FromAccountId = transfer.From.Id;
-                dto.ToAccountId = transfer.To.Id;
-                break;
-            default:
-                break;
-            }
-            dto.Id = transaction.Id;
-            dto.Type = transaction.Type;
-            dto.Amount = transaction.Amount;
-            dto.DateStamp = transaction.DateStamp;
-            dto.Status = transaction.Status;
-
-            return dto;
-        }
-
-        public List<TransactionDetailDto> AsTransactionDetailDtoList(IEnumerable<Transaction> transactions)
-        {
-            List<TransactionDetailDto> dtos = new List<TransactionDetailDto>();
-            foreach(var transaction in transactions)
-                dtos.Add(AsTransactionDetailDto(transaction));
-            return dtos;
         }
     }
 }

@@ -10,11 +10,11 @@ namespace CleanBankingApp.WebApi.Controllers
     [Route("[controller]")]
     public class AccountsController : ControllerBase
     {
-        private readonly IAccountService _accounts;
+        private readonly IAccountService _accountService;
 
-        public AccountsController(IAccountService accounts)
+        public AccountsController(IAccountService accountService)
         {
-            _accounts = accounts;
+            _accountService = accountService;
         }
 
         [HttpPost]
@@ -22,7 +22,7 @@ namespace CleanBankingApp.WebApi.Controllers
         {
             try
             {
-                return Ok(_accounts.CreateAccount(account));
+                return Ok(_accountService.CreateAccount(account));
             }
             catch (Exception ex)
             {
@@ -33,7 +33,7 @@ namespace CleanBankingApp.WebApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Account>> Get()
         {
-            return _accounts.GetAll();
+            return _accountService.GetAll();
         }
 
         [HttpGet("{id:int}")]
@@ -41,7 +41,7 @@ namespace CleanBankingApp.WebApi.Controllers
         {
             try
             {
-                return Ok(_accounts.GetById(id));
+                return Ok(_accountService.GetById(id));
             }
             catch (Exception ex)
             {
@@ -54,7 +54,7 @@ namespace CleanBankingApp.WebApi.Controllers
         {
             try
             {
-                return Ok(_accounts.GetByName(name));
+                return Ok(_accountService.GetByName(name));
             }
             catch (Exception ex)
             {

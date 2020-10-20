@@ -26,8 +26,28 @@ POST http://localhost:5000/accounts
 content-type: application/json
 
 { 
-    "name": null,
+    "name": "Elliot",
     "balance": 100
+}
+
+###
+
+POST http://localhost:5000/accounts
+content-type: application/json
+
+{ 
+    "name": "Oliver",
+    "balance": 1000
+}
+
+###
+
+POST http://localhost:5000/accounts
+content-type: application/json
+
+{ 
+    "name": "Grace",
+    "balance": 1000
 }
 
 ###

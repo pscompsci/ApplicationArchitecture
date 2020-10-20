@@ -21,10 +21,6 @@ namespace CleanBankingApp.Core.Domain.Entities
                 else if (Executed) return "Incomplete";
                 else return "Pending";
             }
-            set
-            {
-
-            }
         }
 
         public Transaction(decimal amount, string type)
@@ -43,10 +39,10 @@ namespace CleanBankingApp.Core.Domain.Entities
             return true;
         }
 
-        public virtual bool Rollback()
+        public virtual Transaction Rollback()
         {
             DateStamp = DateTime.Now;
-            return true;
+            return this;
         }
     }
 }

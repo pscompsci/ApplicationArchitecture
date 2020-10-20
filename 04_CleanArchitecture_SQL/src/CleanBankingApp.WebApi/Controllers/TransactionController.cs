@@ -11,28 +11,28 @@ namespace CleanBankingApp.WebApi.Controllers
     [Route("[controller]")]
     public class TransactionsController : ControllerBase
     {
-        // private readonly IAccountService _accounts;
+        private readonly IAccountService _accounts;
         private readonly ITransactionService _transactions;
         private readonly ITransactionsManager _manager;
 
         public TransactionsController(
-            // IAccountService accounts, 
+            IAccountService accounts, 
             ITransactionService transactions,
             ITransactionsManager manager
         )
         {
-            // _accounts = accounts;
+            _accounts = accounts;
             _transactions = transactions;
             _manager = manager;
         }
 
         [HttpPost]
-        public ActionResult<TransactionDetailDto> CreateTransaction(CreateTransactionDto dto)
+        public ActionResult<Transaction> CreateTransaction(CreateTransactionDto dto)
         {
             try
             {
                 Transaction transaction = _manager.CreateFromHttpPost(dto);
-                return _manager.AsTransactionDetailDto(transaction);
+                return transaction;
             }
             catch (Exception ex)
             {
@@ -41,18 +41,17 @@ namespace CleanBankingApp.WebApi.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<TransactionDetailDto>> Get()
+        public ActionResult<IEnumerable<Transaction>> Get()
         {
-            return _manager.AsTransactionDetailDtoList(_transactions.GetAll());
+            return _transactions.GetAll();
         }
 
         [HttpGet("{id:int}")]
-        public ActionResult<TransactionDetailDto> GetById(int id)
+        public ActionResult<Transaction> GetById(int id)
         {
             try
             {
-                Transaction transaction = _transactions.GetById(id);
-                return _manager.AsTransactionDetailDto(transaction);
+                return _transactions.GetById(id);
             }
             catch (Exception ex)
             {
@@ -61,12 +60,12 @@ namespace CleanBankingApp.WebApi.Controllers
         }
 
         [HttpPut("{id:int}/rollback")]
-        public ActionResult<TransactionDetailDto> Rollback(int id)
+        public ActionResult<Transaction> Rollback(int id)
         {
             try
             {
                 Transaction transaction = _manager.Rollback(id);
-                return _manager.AsTransactionDetailDto(transaction);
+                return transaction;
             }
             catch (Exception ex)
             {

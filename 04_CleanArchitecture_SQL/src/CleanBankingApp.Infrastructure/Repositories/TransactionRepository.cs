@@ -3,6 +3,7 @@ using CleanBankingApp.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanBankingApp.Infrastructure.Repositories
 {
@@ -19,14 +20,14 @@ namespace CleanBankingApp.Infrastructure.Repositories
         public Transaction Create(Transaction transaction)
         {
             Transaction trans = _ctx.Transactions.Add(transaction).Entity;
+            trans.Execute();
             _ctx.SaveChanges();
             return trans;
-
-            // throw new NotImplementedException();
         }
 
         public IEnumerable<Transaction> GetAll()
         {
+            System.Console.WriteLine("Here");
             return _ctx.Transactions;
         }
 
@@ -43,12 +44,14 @@ namespace CleanBankingApp.Infrastructure.Repositories
 
         public int GetCount()
         {
-            throw new NotImplementedException();
+            return _ctx.Transactions.Count();
         }
 
         public Transaction Update(Transaction transaction)
         {
-            throw new NotImplementedException();
+            _ctx.Update(transaction);
+            _ctx.SaveChanges();
+            return transaction;
         }
     }
 }

@@ -21,6 +21,10 @@ content-type: application/json
 
 ###
 
+PUT http://localhost:5000/transactions/1/rollback
+
+###
+
 POST http://localhost:5000/transactions
 content-type: application/json
 
@@ -54,4 +58,4 @@ content-type: application/json
 
 ###
 
-PUT http://localhost:5000/transactions/3/rollback
+PUT http://localhost:5000/transactions/1/rollback
